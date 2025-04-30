@@ -2,6 +2,8 @@
 // The component also includes a success message upon successful registration. The form allows users to add allergies dynamically and provides input fields for maximum dietary limits.
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signup } from '../../services/signup';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -11,14 +13,15 @@ const RegisterPage = () => {
     confirmPassword: '',
     allergyInput: '',
     allergies: [],
-    maxCalories: '',
-    maxCarbs: '',
-    maxProtein: '',
-    maxFat: '',
+    max_calories: '',
+    max_carbs: '',
+    max_protein: '',
+    max_fat: '',
   });
 
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState(null); // success | error | null
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +53,7 @@ const RegisterPage = () => {
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
   
     // Dietary preferences validation
-    const numericFields = ['maxCalories', 'maxCarbs', 'maxProtein', 'maxFat'];
+    const numericFields = ['max_calories', 'max_carbs', 'max_protein', 'max_fat'];
     numericFields.forEach((field) => {
       const value = formData[field];
       if (value) {
@@ -63,7 +66,7 @@ const RegisterPage = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
 
@@ -71,8 +74,24 @@ const RegisterPage = () => {
       setErrors(validationErrors);
       setSubmitStatus('error');
     } else {
+      try {
+        const repone = await signup(formData);
+        if (repone.success) {
+          setSubmitStatus('success');
+          navigate('/home'); // Redirect to home page or another page
+        } else {
+          setErrors({ server: repone.error });
+          setSubmitStatus('error');
+        }
+      }
+      catch (error) {
+        console.error('Error during registration:', error);
+        setSubmitStatus('error');
+      }      
       console.log('Form submitted:', formData);
       setSubmitStatus('success');
+
+
 
       // Reset form (optional)
       setFormData({
@@ -82,10 +101,10 @@ const RegisterPage = () => {
         confirmPassword: '',
         allergyInput: '',
         allergies: [],
-        maxCalories: '',
-        maxCarbs: '',
-        maxProtein: '',
-        maxFat: '',
+        max_calories: '',
+        max_carbs: '',
+        max_protein: '',
+        max_fat: '',
       });
     }
   };
@@ -209,11 +228,11 @@ const RegisterPage = () => {
               <label className="block text-gray-700 mb-1">Max Calories</label>
               <input
                 type="number"
-                name="maxCalories"
-                value={formData.maxCalories}
+                name="max_calories"
+                value={formData.max_calories}
                 onChange={handleChange}
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-                    errors.maxCalories ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
+                    errors.max_calories ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
                   }`}
               />
             </div>
@@ -221,11 +240,11 @@ const RegisterPage = () => {
               <label className="block text-gray-700 mb-1">Max Carbs</label>
               <input
                 type="number"
-                name="maxCarbs"
-                value={formData.maxCarbs}
+                name="max_carbs"
+                value={formData.max_carbs}
                 onChange={handleChange}
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-                    errors.maxCarbs ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
+                    errors.max_carbs ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
                   }`}
               />
             </div>
@@ -233,11 +252,11 @@ const RegisterPage = () => {
               <label className="block text-gray-700 mb-1">Max Protein</label>
               <input
                 type="number"
-                name="maxProtein"
-                value={formData.maxProtein}
+                name="max_protein"
+                value={formData.max_protein}
                 onChange={handleChange}
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-                    errors.maxProtein ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
+                    errors.max_protein ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
                   }`}
               />
             </div>
@@ -245,11 +264,11 @@ const RegisterPage = () => {
               <label className="block text-gray-700 mb-1">Max Fat</label>
               <input
                 type="number"
-                name="maxFat"
-                value={formData.maxFat}
+                name="max_fat"
+                value={formData.max_fat}
                 onChange={handleChange}
                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-                    errors.maxFat ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
+                    errors.max_fat ? 'border-red-500 focus:ring-red-300' : 'focus:ring-blue-400'
                   }`}
               />
             </div>
