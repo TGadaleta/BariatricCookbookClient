@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSignIn = () => {
     console.log('Signing in with:', username, password);
   };
 
   const handleRegister = () => {
-    console.log('Registering with:', username, password);
+    console.log('Heading to registration page');
+    navigate('/register');
   };
 
   return (
@@ -42,7 +45,7 @@ const LandingPage = () => {
         <div className="flex flex-col gap-3">
           <button
             onClick={handleSignIn}
-            className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+            className="bg-blue-500 text-gray py-2 rounded-lg hover:bg-blue-600 transition"
           >
             Sign In
           </button>
