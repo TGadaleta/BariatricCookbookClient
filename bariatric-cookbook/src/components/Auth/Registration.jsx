@@ -13,10 +13,10 @@ const RegisterPage = () => {
     confirmPassword: '',
     allergyInput: '',
     allergies: [],
-    max_calories: '',
-    max_carbs: '',
-    max_protein: '',
-    max_fat: '',
+    max_calories: '0',
+    max_carbs: '0',
+    max_protein: '0',
+    max_fat: '0',
   });
 
   const [errors, setErrors] = useState({});
@@ -101,10 +101,10 @@ const RegisterPage = () => {
         confirmPassword: '',
         allergyInput: '',
         allergies: [],
-        max_calories: '',
-        max_carbs: '',
-        max_protein: '',
-        max_fat: '',
+        max_calories: '0',
+        max_carbs: '0',
+        max_protein: '0',
+        max_fat: '0',
       });
     }
   };

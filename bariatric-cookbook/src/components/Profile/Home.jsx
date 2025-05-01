@@ -7,7 +7,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:8000/bariatric-cookbook/profile/me/', {
+        const response = await fetch(`http://localhost:8000/bariatric-cookbook/profile/`, {
           method: 'GET',
           credentials: 'include',
         });
