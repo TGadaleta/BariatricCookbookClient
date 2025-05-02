@@ -8,6 +8,7 @@ const RegisterPage = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    diet: '',
     allergyInput: '',
     allergies: [],
     max_calories: '0',
@@ -67,6 +68,7 @@ const RegisterPage = () => {
       setSubmitStatus('error');
     } else {
       try {
+        console.log('Submitting form data:', formData);
         const response = await signup(formData);
         if (response.success) {
           setSubmitStatus('success');
@@ -76,6 +78,7 @@ const RegisterPage = () => {
             email: '',
             password: '',
             confirmPassword: '',
+            diet: '',
             allergyInput: '',
             allergies: [],
             max_calories: '0',
@@ -182,6 +185,24 @@ const RegisterPage = () => {
         {/* === Dietary Preferences === */}
         <div>
           <h3 className="text-lg font-semibold text-gray-700 mb-4">Dietary Preferences</h3>
+
+          <div className ="mb-2">
+            <label className="block text-gray-700 mb-1">Diet</label>
+            <select
+              name="diet"
+              value={formData.diet}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">Select a diet</option>
+              <option value="keto">Keto</option>
+              <option value="paleo">Paleo</option>
+              <option value="vegan">Vegan</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="gluten-free">Gluten-Free</option>
+              <option value="dairy-free">Dairy-Free</option>
+            </select>
+        </div>
 
           <div className="mb-2">
             <label className="block text-gray-700 mb-1">Allergies</label>

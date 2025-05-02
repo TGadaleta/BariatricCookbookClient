@@ -16,6 +16,7 @@ export const signup = async (formData) => {
         username: formData.username,
         email: formData.email,
         password: formData.password,
+        diet: formData.diet,
         allergies: formData.allergies,
         max_calories: formData.max_calories,
         max_carbs: formData.max_carbs,
