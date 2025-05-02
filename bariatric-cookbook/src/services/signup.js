@@ -37,7 +37,6 @@ export const signup = async (formData) => {
     if (!loginResponse.success) {
       return { success: false, errors: { server: 'Login failed after registration.' } };
     }
-
     return { success: true };
   } catch (error) {
     return { success: false, errors: { server: 'Network error. Please try again.' } };

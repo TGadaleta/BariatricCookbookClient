@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/login.js';
 
 const LandingPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSignIn = () => {
-    console.log('Signing in with:', username, password);
+  const handleSignIn = async () => {
+    try {
+      const loginResponse = await login(username, password);
+      if (!loginResponse.success) {
+        return { success: false, errors: { server: loginResponse.error || 'Login failed.' } };
+      }
+      navigate('/home');
+      return { success: true };
+    } catch (error) {
+      console.error("Unexpected login error:", error);
+      return { success: false, errors: { server: 'Something went wrong. Please try again.' } };
+    }
   };
+  
 
   const handleRegister = () => {
     console.log('Heading to registration page');
