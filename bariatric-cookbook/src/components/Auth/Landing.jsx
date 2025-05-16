@@ -63,7 +63,7 @@ const LandingPage = () => {
           </button>
           <button
             onClick={handleRegister}
-            className="bg-gray-300 text-gray-800 py-2 rounded-lg hover:bg-gray-400 transition"
+            className="bg-blue-500 text-gray py-2 rounded-lg hover:bg-gray-400 transition"
           >
             Register
           </button>
